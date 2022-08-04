@@ -13,45 +13,165 @@ class _SecondApp extends State<SecondApp> {
   final nameController = TextEditingController();
   int? _radioValue = 0;
   bool? flyExist = false;
+  String? _imagePath;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                TextField(
-                  controller: nameController,
-                  keyboardType: TextInputType.text,
-                  maxLines: 1,
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+              Widget>[
+            TextField(
+              controller: nameController,
+              keyboardType: TextInputType.text,
+              maxLines: 1,
+            ),
+            //동물 종류 선택 라디오 버튼, value인덱스값,groupvalue는 그룹화,onchange는 이벤트처리
+            Row(children: <Widget>[
+              Radio(value: 0, groupValue: _radioValue, onChanged: _radioChange),
+              Text('양서류'),
+              Radio(value: 1, groupValue: _radioValue, onChanged: _radioChange),
+              Text('파충류'),
+              Radio(value: 2, groupValue: _radioValue, onChanged: _radioChange),
+              Text('포유류'),
+            ], mainAxisAlignment: MainAxisAlignment.spaceAround),
+            //날수있는지 체크박스
+            Row(children: <Widget>[
+              Text('날 수 있나요?'),
+              Checkbox(
+                  value: flyExist,
+                  onChanged: (bool? check) {
+                    setState(() {
+                      flyExist = check;
+                    });
+                  })
+            ], mainAxisAlignment: MainAxisAlignment.spaceAround),
+            //동물 이미지로 고르기 Row위젯은 이미지 화면 벗어나면 다 표시 못해서 container child:ListView리스트뷰사용
+            //scrollDirection 이용해서 가로로 변경 가능
+            // Row(
+            //     children: <Widget>[
+            //
+            Container(
+              height: 100,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[GestureDetector(
+                  child: Image.asset('repo/images/cow.png', width: 80),
+                  onTap: () {
+                    //_imagePath라는 이름이 아직 정의가 안됨
+                    _imagePath = 'repo/image/cow.png';
+                  },
                 ),
-                Row(
-                  children: <Widget>[
-                    Radio(value: 0,
-                        groupValue: _radioValue,
-                        onChanged: _radioChange),
-                    Text('양서류'),
-                    Radio(value: 1,
-                        groupValue: _radioValue,
-                        onChanged: _radioChange),
-                    Text('파충류'),
-                    Radio(value: 2,
-                        groupValue: _radioValue,
-                        onChanged: _radioChange),
-                    Text('포유류'),
-                  ],
-                ),
-              ]
+                  GestureDetector(
+                    child: Image.asset('repo/images/pig.png', width: 80),
+                    onTap: () {
+                      _imagePath = 'repo/image/pig.png';
+                    },
+                  ),
+                  GestureDetector(
+                    child: Image.asset('repo/images/bee.png', width: 80),
+                    onTap: () {
+                      _imagePath = 'repo/image/bee.png';
+                    },
+                  ),
+                  GestureDetector(
+                    child: Image.asset('repo/images/cat.png', width: 80),
+                    onTap: () {
+                      _imagePath = 'repo/image/cat.png';
+                    },
+                  ),
+                  GestureDetector(
+                    child: Image.asset('repo/images/wolf.png', width: 80),
+                    onTap: () {
+                      //_imagePath라는 이름이 아직 정의가 안됨
+                      _imagePath = 'repo/image/wolf.png';
+                    },
+                  ),
+                  GestureDetector(
+                    child: Image.asset('repo/images/dog.png', width: 80),
+                    onTap: () {
+                      _imagePath = 'repo/image/dog.png';
+                    },
+                  ),
+                  GestureDetector(
+                    child: Image.asset('repo/images/fox.png', width: 80),
+                    onTap: () {
+                      _imagePath = 'repo/image/fox.png';
+                    },
+                  ),
+                  GestureDetector(
+                    child: Image.asset('repo/images/monkey.png', width: 80),
+                    onTap: () {
+                      _imagePath = 'repo/image/monkey.png';
+                    },
+                  ),
+                ],
+
+              ),
+            ),
+
+
+            //위젯들을 양쪽 여백 사이에 균일하게 배치하기위해 mainAxis
+
+            //동물추가하기 버튼만들기
+            ElevatedButton(child: Text('동물 추가하기'),
+                onPressed: () {
+                  var animal = Animal(
+                      animalName: nameController.value.text,
+                      kind: getKind(_radioValue),
+                      imagePath: _imagePath,
+                      flyExist: flyExist);
+                  AlertDialog dialog = AlertDialog(
+                    title: Text('동물 추가하기'),
+                    content: Text(
+                      '이 동물은 ${animal.animalName} 입니다.'
+                          '또 동물의 종류는 ${animal.kind}입니다.\n이 동물을 추가하시겠습니까?',
+                      style: TextStyle(fontSize: 30.0),
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          widget.list?.add(animal);
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('예'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('아니요'),
+                      ),
+                    ],
+                  );
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => dialog);
+                })
+
+
+          ],
           ),
         ),
       ),
     );
   }
-  _radioChange(int? value){
-    setState(() {
-      _radioValue = value;
+
+  //라디오체인지 함수로 정의해서 버튼 인덱스값 넣기
+  _radioChange(int? value) {
+    setState((){
+      _radioValue= value!;
     });
   }
-}
+    getKind(int? _radioValue) {
+      switch (_radioValue) {
+        case 0:
+          return "양서류";
+        case 1:
+          return "파충류";
+        case 2:
+          return "포유류";
+      }
+    }
+  }
