@@ -60,50 +60,50 @@ class _SecondApp extends State<SecondApp> {
                   child: Image.asset('repo/images/cow.png', width: 80),
                   onTap: () {
                     //_imagePath라는 이름이 아직 정의가 안됨
-                    _imagePath = 'repo/image/cow.png';
+                    _imagePath = 'repo/images/cow.png';
                   },
                 ),
                   GestureDetector(
                     child: Image.asset('repo/images/pig.png', width: 80),
                     onTap: () {
-                      _imagePath = 'repo/image/pig.png';
+                      _imagePath = 'repo/images/pig.png';
                     },
                   ),
                   GestureDetector(
                     child: Image.asset('repo/images/bee.png', width: 80),
                     onTap: () {
-                      _imagePath = 'repo/image/bee.png';
+                      _imagePath = 'repo/images/bee.png';
                     },
                   ),
                   GestureDetector(
                     child: Image.asset('repo/images/cat.png', width: 80),
                     onTap: () {
-                      _imagePath = 'repo/image/cat.png';
+                      _imagePath = 'repo/images/cat.png';
                     },
                   ),
                   GestureDetector(
                     child: Image.asset('repo/images/wolf.png', width: 80),
                     onTap: () {
                       //_imagePath라는 이름이 아직 정의가 안됨
-                      _imagePath = 'repo/image/wolf.png';
+                      _imagePath = 'repo/images/wolf.png';
                     },
                   ),
                   GestureDetector(
                     child: Image.asset('repo/images/dog.png', width: 80),
                     onTap: () {
-                      _imagePath = 'repo/image/dog.png';
+                      _imagePath = 'repo/images/dog.png';
                     },
                   ),
                   GestureDetector(
                     child: Image.asset('repo/images/fox.png', width: 80),
                     onTap: () {
-                      _imagePath = 'repo/image/fox.png';
+                      _imagePath = 'repo/images/fox.png';
                     },
                   ),
                   GestureDetector(
                     child: Image.asset('repo/images/monkey.png', width: 80),
                     onTap: () {
-                      _imagePath = 'repo/image/monkey.png';
+                      _imagePath = 'repo/images/monkey.png';
                     },
                   ),
                 ],
